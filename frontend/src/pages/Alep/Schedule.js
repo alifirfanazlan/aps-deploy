@@ -10,7 +10,7 @@ function Schedule() {
   const addEvent = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:3001/event").then((response) => {
+    axios.get("http://54.209.211.222:5001/event").then((response) => {
       setlistofEvent(response.data);
     });
   }, []);

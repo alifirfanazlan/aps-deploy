@@ -1,16 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react'
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'
-import { Avatar } from '@mui/material';
+import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Avatar } from "@mui/material";
 import {
   getStorage,
   ref,
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import './Register.css'
-import app from '../../firebase/firebase';
+import "./Register.css";
+import app from "../../firebase/firebase";
 import {
   MDBCol,
   MDBContainer,
@@ -28,14 +28,11 @@ import {
   MDBDropdownMenu,
   MDBIcon,
   MDBInputGroup,
-  MDBValidationItem
-} from 'mdb-react-ui-kit';
-import * as Yup from 'yup';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import imageReg from '../../images/lcw (1).png'
-
-
-
+  MDBValidationItem,
+} from "mdb-react-ui-kit";
+import * as Yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import imageReg from "../../images/lcw (1).png";
 
 function RegisterOthers() {
   const { currentUser } = useSelector((state) => state.user);
@@ -43,9 +40,8 @@ function RegisterOthers() {
   const [profileDetails, setProfileDetails] = useState({});
   const [inputs, setInputs] = useState({});
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [imgPerc, setImgPerc] = useState(0);
-  
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -59,7 +55,7 @@ function RegisterOthers() {
   const [image, setImage] = useState(undefined);
   const [imageUrl, setImageUrl] = useState(profileDetails.imgUrl);
   const FILE_SIZE = 2000000; // 2MB in bytes
-  const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png'];
+  const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png"];
 
   // const initialValues = {
   //   name: '',
@@ -78,12 +74,11 @@ function RegisterOthers() {
   // })
 
   const onSubmit = (values) => {
-    console.log('Form data', values)
+    console.log("Form data", values);
     // Perform submit action here
-  }
+  };
 
-
-  const [selectedRole, setSelectedRole] = useState('Manager');
+  const [selectedRole, setSelectedRole] = useState("Manager");
 
   const handleChange = (event) => {
     setSelectedRole(event.target.value);
@@ -100,7 +95,9 @@ function RegisterOthers() {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        urlType === "imgUrl" ? setImgPerc(Math.round(progress)) : console.log("Something wrong");
+        urlType === "imgUrl"
+          ? setImgPerc(Math.round(progress))
+          : console.log("Something wrong");
         switch (snapshot.state) {
           case "paused":
             console.log("Upload is paused");
@@ -112,12 +109,10 @@ function RegisterOthers() {
             break;
         }
       },
-      (error) => { },
+      (error) => {},
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setImageUrl(downloadURL)
-
-
+          setImageUrl(downloadURL);
         });
       }
     );
@@ -130,24 +125,23 @@ function RegisterOthers() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3001/account",
-        {
-          username: username,
-          password: password,
-          name: name,
-          age: age,
-          birthday: birthday,
-          height: height,
-          weight: weight,
-          sport: sport,
-          contact: contact,
-          imgUrl: imageUrl,
-          role: selectedRole
-        });
+      const res = await axios.post("http://54.209.211.222:5001/account", {
+        username: username,
+        password: password,
+        name: name,
+        age: age,
+        birthday: birthday,
+        height: height,
+        weight: weight,
+        sport: sport,
+        contact: contact,
+        imgUrl: imageUrl,
+        role: selectedRole,
+      });
 
-      navigate("/home")
+      navigate("/home");
     } catch (err) {
-      console.log("Unable to register")
+      console.log("Unable to register");
     }
   };
 
@@ -241,10 +235,7 @@ function RegisterOthers() {
         </form>
       </div> */}
 
-
-
-
-{/* <MDBCard classNameName='text-black m-5' style={{borderRadius: '25px'}}>
+      {/* <MDBCard classNameName='text-black m-5' style={{borderRadius: '25px'}}>
   
     <MDBRow>
       <MDBCol md='10' lg='6' classNameName='order-2 order-lg-1 d-flex flex-column align-items-center'
@@ -410,47 +401,38 @@ function RegisterOthers() {
   
 </MDBCard> */}
 
-
-  <div className="center">
- 
-  <div className="container">
-    <label htmlFor="show" className="close-btn fas fa-times" title="close" />
-    <div className="text">Register Form</div>
-    <form action="#">
-      <div className="data">
-        <label>Email or Phone</label>
-        <input type="text" required="" />
+      <div className="center">
+        <div className="container">
+          <label
+            htmlFor="show"
+            className="close-btn fas fa-times"
+            title="close"
+          />
+          <div className="text">Register Form</div>
+          <form action="#">
+            <div className="data">
+              <label>Email or Phone</label>
+              <input type="text" required="" />
+            </div>
+            <div className="data">
+              <label>Password</label>
+              <input type="password" required="" />
+            </div>
+            <div className="forgot-pass">
+              <a href="#">Forgot Password?</a>
+            </div>
+            <div className="btn">
+              <div className="inner" />
+              <button type="submit">login</button>
+            </div>
+            <div className="signup-link">
+              Not a member? <a href="#">Signup now</a>
+            </div>
+          </form>
+        </div>
       </div>
-      <div className="data">
-        <label>Password</label>
-        <input type="password" required="" />
-      </div>
-      <div className="forgot-pass">
-        <a href="#">Forgot Password?</a>
-      </div>
-      <div className="btn">
-        <div className="inner" />
-        <button type="submit">login</button>
-      </div>
-      <div className="signup-link">
-        Not a member? <a href="#">Signup now</a>
-      </div>
-    </form>
-  </div>
-</div>
-
-
-
-
-
-
     </div>
   );
-
-
-
-
-
 }
 
-export default RegisterOthers
+export default RegisterOthers;

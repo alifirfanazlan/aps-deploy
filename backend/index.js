@@ -16,6 +16,7 @@ const announcementRouter = require("./routes/Announcement");
 const cookieParser = require("cookie-parser");
 // const session = require("express-session")
 //const fitnessRouter = require("./routes/Fitness");
+const path = require("path");
 
 const app = express();
 dotenv.config();
@@ -35,7 +36,7 @@ dotenv.config();
 
 app.use(cookieParser());
 app.use(express.json());
-
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 // app.use(express.static('public'));
 // app.use(express.json({ limit: '10mb' }));
 
@@ -53,7 +54,7 @@ const connect = () => {
 app.use(
   cors({
     // credentials: true,
-    origin: "http://localhost:3000",
+    origin: "http://54.209.211.222:5000",
   })
 );
 app.use("/profile", profileRouter);
@@ -96,10 +97,17 @@ app.use("/fitness", fitnessRouter);
 
 // const db = require('./models');
 
-app.listen(process.env.APP_PORT, () => {
+const port = 5000;
+
+app.listen(port, () => {
   connect();
-  console.log("Server running on port 3001");
+  console.log(`Server running on port ${port}`);
 });
+
+// app.listen(process.env.APP_PORT, () => {
+//   connect();
+//   console.log("Server running on port 3001");
+// });
 
 // db.sequelize.sync().then(()=>{
 

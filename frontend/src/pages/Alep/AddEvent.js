@@ -8,7 +8,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const App = () => {
-  
   let navigate = useNavigate();
   const initialValues = {
     date: "",
@@ -23,7 +22,7 @@ const App = () => {
   });
 
   const onSubmit = (data) => {
-    axios.post("http://localhost:3001/event", data).then((response) => {
+    axios.post("http://54.209.211.222:5001/event", data).then((response) => {
       alert("Data Input");
       navigate("/schedule");
     });

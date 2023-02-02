@@ -83,10 +83,12 @@ function Wellness() {
     },
     validationSchema: validationSchema,
     onSubmit: (data) => {
-      axios.post("http://localhost:3001/wellness", data).then((response) => {
-        alert(JSON.stringify("Input Data Successfull", null, 2));
-        postMood()
-      });
+      axios
+        .post("http://54.209.211.222:5001/wellness", data)
+        .then((response) => {
+          alert(JSON.stringify("Input Data Successfull", null, 2));
+          postMood();
+        });
     },
   });
 
@@ -99,7 +101,7 @@ function Wellness() {
   useEffect(() => {
     async function getInjury() {
       const request = await axios.get(
-        `http://localhost:3001/wellness/date/${datatoken._id}`
+        `http://54.209.211.222:5001/wellness/date/${datatoken._id}`
       );
       request.data.map((element) => {
         setInjuryData(element.injuryPart);
@@ -118,7 +120,7 @@ function Wellness() {
   useEffect(() => {
     async function getSleep() {
       const request = await axios.get(
-        `http://localhost:3001/wellness/sleep/${datatoken._id}`
+        `http://54.209.211.222:5001/wellness/sleep/${datatoken._id}`
       );
 
       setGetSleepDataStart(
@@ -143,7 +145,7 @@ function Wellness() {
   useEffect(() => {
     async function checkForm() {
       await axios
-        .get(`http://localhost:3001/wellness/form/${datatoken._id}`)
+        .get(`http://54.209.211.222:5001/wellness/form/${datatoken._id}`)
         .then((res) => {
           setcheckForm(
             res.data.map((element) => {
@@ -183,24 +185,26 @@ function Wellness() {
   var chartlength = chart.length;
 
   function calculateMood() {
-    console.log("Kira")
+    console.log("Kira");
     if (injuryData > 0) {
       setwellnessmood("Bad");
-    }
-    else{
-      setwellnessmood("Good")
+    } else {
+      setwellnessmood("Good");
     }
   }
-  postMood()
+  postMood();
   function postMood() {
     const PostMood = {
       userId: datatoken._id,
       wellnessmood: wellnessmood,
-      injuryInput:injuryData,
+      injuryInput: injuryData,
     };
     //console.log(PostMood);
     axios
-      .patch(`http://localhost:3001/wellness/mood/${datatoken._id}`, PostMood)
+      .patch(
+        `http://54.209.211.222:5001/wellness/mood/${datatoken._id}`,
+        PostMood
+      )
       .then((response) => {
         // Handle the response
         console.log("Successfull Store Mood to DB");

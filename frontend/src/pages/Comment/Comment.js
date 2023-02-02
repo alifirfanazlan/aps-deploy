@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
 
@@ -7,17 +7,22 @@ function Post() {
   let { id } = useParams();
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-//   const { authState } = useContext(AuthContext);
+  //   const { authState } = useContext(AuthContext);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/comment/${id}`).then((response) => {
-        setComments(response.data);
-      });
+    axios.get(`http://54.209.211.222:5001/comment/${id}`).then((response) => {
+      setComments(response.data);
     });
-//   }, []);
+  });
+  //   }, []);
 
   const addComment = () => {
-    axios.post("http://localhost:3001/comment",{commentBody: newComment, ProfileId: id,} ).then((response) => {
+    axios
+      .post("http://54.209.211.222:5001/comment", {
+        commentBody: newComment,
+        ProfileId: id,
+      })
+      .then((response) => {
         if (response.data.error) {
           console.log(response.data.error);
         } else {
@@ -33,10 +38,17 @@ function Post() {
 
   return (
     <div className="postPage">
-      
       <div className="rightSide">
         <div className="addCommentContainer">
-          <input type="text" placeholder="Comment..." autoComplete="off" value={newComment} onChange={(event) => {setNewComment(event.target.value)}}/>
+          <input
+            type="text"
+            placeholder="Comment..."
+            autoComplete="off"
+            value={newComment}
+            onChange={(event) => {
+              setNewComment(event.target.value);
+            }}
+          />
           <button onClick={addComment}> Add Comment</button>
         </div>
 
@@ -46,7 +58,6 @@ function Post() {
               <div key={key} className="comment">
                 {comment.commentBody}
                 <label> Username: {comment.username}</label>
-                
               </div>
             );
           })}

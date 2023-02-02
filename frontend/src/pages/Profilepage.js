@@ -7,16 +7,16 @@ import {
   DialogTitle,
   IconButton,
   TextField,
-} from '@mui/material';
+} from "@mui/material";
 import * as Yup from "yup";
-import './Update_Profile.css'
-import React, { useState, useContext, useEffect } from 'react'
-import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'
+import "./Update_Profile.css";
+import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { loginFailure, loginStart, loginSuccess } from "../../redux/userSlice";
-import { update_user, update_profile } from "../../redux/userSlice"
-import app from '../../firebase/firebase';
+import { update_user, update_profile } from "../../redux/userSlice";
+import app from "../../firebase/firebase";
 import Textfield from "../../components/AddEvent/Textfield";
 import { Formik, Form } from "formik";
 import { Container, Grid, Typography, Button, Box } from "@mui/material";
@@ -27,21 +27,20 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 const Update_Profile = () => {
-
-  const token = Cookies.get('access_token');
+  const token = Cookies.get("access_token");
   if (token) {
     const data = JSON.parse(token);
     // console.log(data);
   } else {
-    console.log("Failed")
+    console.log("Failed");
   }
 
-  let datatoken
-  
-  if (token && typeof token !== 'undefined') {
+  let datatoken;
+
+  if (token && typeof token !== "undefined") {
     datatoken = JSON.parse(token);
     // use datatoken here
   }
@@ -59,20 +58,18 @@ const Update_Profile = () => {
   });
   const path = useLocation().pathname.split("/")[2];
 
-
   useEffect(() => {
     const fetchData = async () => {
-    try {
-      const accountRes = await axios.get(`http://localhost:3001/account/find/${datatoken._id}`);
-      
+      try {
+        const accountRes = await axios.get(
+          `http://54.209.211.222:5001/account/find/${datatoken._id}`
+        );
 
-      setProfileDetails(accountRes.data);
-      
-      
-    } catch (err) { }
-  }
-  fetchData();
-})
+        setProfileDetails(accountRes.data);
+      } catch (err) {}
+    };
+    fetchData();
+  });
 
   const uploadFile = (file, urlType) => {
     const storage = getStorage(app);
@@ -85,7 +82,9 @@ const Update_Profile = () => {
       (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        urlType === "imgUrl" ? setImgPerc(Math.round(progress)) : console.log("Something wrong");
+        urlType === "imgUrl"
+          ? setImgPerc(Math.round(progress))
+          : console.log("Something wrong");
         switch (snapshot.state) {
           case "paused":
             console.log("Upload is paused");
@@ -97,12 +96,10 @@ const Update_Profile = () => {
             break;
         }
       },
-      (error) => { },
+      (error) => {},
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setImageUrl(downloadURL)
-
-          
+          setImageUrl(downloadURL);
         });
       }
     );
@@ -111,98 +108,94 @@ const Update_Profile = () => {
   useEffect(() => {
     image && uploadFile(image, "imgUrl");
   }, [image]);
-  
 
   const onSubmit = async (data) => {
-    await axios.patch(`http://localhost:3001/account/${datatoken._id}`, 
-    {
-      name: data.name,
-      birthday: data.birthday,
-      height : data.height
-    }
-    
-    ).then((response) => {
-      alert("Data Input");
-      navigate("/");
-    });
+    await axios
+      .patch(`http://54.209.211.222:5001/account/${datatoken._id}`, {
+        name: data.name,
+        birthday: data.birthday,
+        height: data.height,
+      })
+      .then((response) => {
+        alert("Data Input");
+        navigate("/");
+      });
   };
 
   return (
-    <div >
+    <div>
+      <Grid container>
+        <Grid item md={12}>
+          <Container maxWidth="md">
+            <div className="Form">
+              <Box width="100%" my={2}>
+                <Typography variant="h5" style={{ textAlign: "center" }}>
+                  Update Profile
+                </Typography>
+              </Box>
 
-
-<Grid container>
-      <Grid item md={12}>
-        <Container maxWidth="md">
-          <div className="Form">
-            <Box width="100%" my={2}>
-              <Typography variant="h5" style={{textAlign: 'center'}}>Update Profile</Typography>
-            </Box>
-
-            <Formik
-              initialValues={{ ...initialValues }}
-              validationSchema={validationSchema}
-              onSubmit={onSubmit}
-            >
-              <Form>
-
-              <Grid container spacing={5}>
-                  <Grid item xs={12}>
-                    <Typography>Name</Typography>
+              <Formik
+                initialValues={{ ...initialValues }}
+                validationSchema={validationSchema}
+                onSubmit={onSubmit}
+              >
+                <Form>
+                  <Grid container spacing={5}>
+                    <Grid item xs={12}>
+                      <Typography>Name</Typography>
+                    </Grid>
                   </Grid>
-                </Grid>
 
-                <Grid item my={2}>
-                  <Textfield
-                    name="name"
-                    label="Enter full name"
-                    variant="outlined"
-                  />
-                </Grid>
-
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <Typography>Birthday</Typography>
+                  <Grid item my={2}>
+                    <Textfield
+                      name="name"
+                      label="Enter full name"
+                      variant="outlined"
+                    />
                   </Grid>
-                </Grid>
 
-                <Grid item my={2}>
-                  <DateTimePicker name="birthday" label="Birthday" variant="outlined" />
-                </Grid>
-
-                <Grid container spacing={9}>
-                  <Grid item xs={12}>
-                    <Typography>Height</Typography>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography>Birthday</Typography>
+                    </Grid>
                   </Grid>
-                </Grid>
 
-                <Grid item my={2}>
-                  <Textfield
-                    name="height"
-                    label="Height"
-                    variant="outlined"
-                    rows={4}
-                  />
-                </Grid>
+                  <Grid item my={2}>
+                    <DateTimePicker
+                      name="birthday"
+                      label="Birthday"
+                      variant="outlined"
+                    />
+                  </Grid>
 
-                
-                <Box width="100%" my={2}>
-                  <Button type="submit" variant="contained" color="primary">
-                    save
-                  </Button>
-                </Box>
-              </Form>
-            </Formik>
-          </div>
-        </Container>
+                  <Grid container spacing={9}>
+                    <Grid item xs={12}>
+                      <Typography>Height</Typography>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item my={2}>
+                    <Textfield
+                      name="height"
+                      label="Height"
+                      variant="outlined"
+                      rows={4}
+                    />
+                  </Grid>
+
+                  <Box width="100%" my={2}>
+                    <Button type="submit" variant="contained" color="primary">
+                      save
+                    </Button>
+                  </Box>
+                </Form>
+              </Formik>
+            </div>
+          </Container>
+        </Grid>
       </Grid>
-    </Grid>
-      </div>
+    </div>
+  );
+};
 
-
-    
-
-  )
-}
-
-export default Update_Profile
+export default Update_Profile;

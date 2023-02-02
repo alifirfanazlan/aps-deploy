@@ -9,24 +9,20 @@ import {
   Select,
   MenuItem,
   TextField,
-} from '@mui/material';
-import {
-  MDBCol,
-  MDBContainer,
-  MDBRow
-} from 'mdb-react-ui-kit';
+} from "@mui/material";
+import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
 import * as Yup from "yup";
-import './Update_Profile.css'
+import "./Update_Profile.css";
 
-import React, { useState, useContext, useEffect } from 'react'
-import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { loginFailure, loginStart, loginSuccess } from "../../redux/userSlice";
-import { update_user, update_profile } from "../../redux/userSlice"
-import app from '../../firebase/firebase';
+import { update_user, update_profile } from "../../redux/userSlice";
+import app from "../../firebase/firebase";
 import Textfield from "../../components/AddEvent/Textfield";
-import SelectWrapper from '../../components/AddEvent/Dropdown';
+import SelectWrapper from "../../components/AddEvent/Dropdown";
 import { Formik, Form } from "formik";
 import { Container, Grid, Typography, Button, Box } from "@mui/material";
 import DateTimePicker from "../../components/AddEvent/DateTimePicker";
@@ -35,19 +31,18 @@ import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
-  deleteObject
+  deleteObject,
 } from "firebase/storage";
 
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 const Update_Profile = () => {
-
   const { currentUser } = useSelector((state) => state.user);
   const [profile, setProfile] = useState({});
   const [profileDetails, setProfileDetails] = useState({});
   const [inputs, setInputs] = useState({});
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [imgPerc, setImgPerc] = useState(0);
 
   const [name, setName] = useState(profileDetails.name);
@@ -63,48 +58,42 @@ const Update_Profile = () => {
 
   const [image, setImage] = useState(undefined);
 
-
-  const token = Cookies.get('access_token');
+  const token = Cookies.get("access_token");
   if (token) {
     const data = JSON.parse(token);
     // console.log(data);
   } else {
-    console.log("Failed")
+    console.log("Failed");
   }
 
-  let datatoken
+  let datatoken;
 
-  if (token && typeof token !== 'undefined') {
+  if (token && typeof token !== "undefined") {
     datatoken = JSON.parse(token);
     // use datatoken here
   }
 
-
-
   const [imageUrl, setImageUrl] = useState("");
-
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const accountRes =
-          await axios.get(`http://localhost:3001/account/find/${datatoken._id}`);
+        const accountRes = await axios.get(
+          `http://54.209.211.222:5001/account/find/${datatoken._id}`
+        );
 
         setProfileDetails(accountRes.data);
         setImageUrl(accountRes.data.imgUrl);
-
-
-      } catch (err) { }
-    }
+      } catch (err) {}
+    };
     fetchData();
-  })
+  });
 
   const handleChange = (event) => {
     setImageUrl(URL.createObjectURL(event.target.files[0]));
 
-    console.log(imageUrl)
+    console.log(imageUrl);
   };
-
 
   const uploadFile = async (file) => {
     const storage = getStorage(app);
@@ -118,7 +107,8 @@ const Update_Profile = () => {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
           switch (snapshot.state) {
             case "paused":
@@ -143,11 +133,10 @@ const Update_Profile = () => {
             // setImageUrl(downloadURL);
             resolve(downloadURL);
           });
-
         }
       );
     });
-  }
+  };
 
   const deleteFileFromStorage = async (url) => {
     const storage = getStorage();
@@ -158,13 +147,14 @@ const Update_Profile = () => {
     const desertRef = ref(storage, url);
 
     // Delete the file
-    deleteObject(desertRef).then(() => {
-      // File deleted successfully
-    }).catch((error) => {
-      // Uh-oh, an error occurred!
-    });
+    deleteObject(desertRef)
+      .then(() => {
+        // File deleted successfully
+      })
+      .catch((error) => {
+        // Uh-oh, an error occurred!
+      });
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -174,7 +164,8 @@ const Update_Profile = () => {
       imageUrl = await uploadFile(image, "imgUrl");
     }
 
-    const res = await axios.patch(`http://localhost:3001/account/${datatoken._id}`,
+    const res = await axios.patch(
+      `http://54.209.211.222:5001/account/${datatoken._id}`,
       {
         name: name,
         age: age,
@@ -186,97 +177,85 @@ const Update_Profile = () => {
         state: state,
         gender: gender,
         contact: contact,
-        imgUrl: imageUrl
+        imgUrl: imageUrl,
       }
-    )
-    Cookies.remove('access_token');
-    const token = JSON.stringify(res.data)
-    Cookies.set('access_token', token, { expires: 7 });
+    );
+    Cookies.remove("access_token");
+    const token = JSON.stringify(res.data);
+    Cookies.set("access_token", token, { expires: 7 });
     if (image) {
       await deleteFileFromStorage(previousImageUrl);
     }
-    navigate(`/profile/${datatoken._id}`)
+    navigate(`/profile/${datatoken._id}`);
   };
 
-
-
   return (
-    <div >
-
-
-      <div className="login-box-container" style={{ marginTop: '20px' }}>
-
+    <div>
+      <div className="login-box-container" style={{ marginTop: "20px" }}>
         <div className="login-box">
-
           <h2>Personal Info</h2>
 
           <div className="signup_form">
-
-            <label style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <label
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <input
                 accept="image/*"
                 id="profilePhoto"
                 type="file"
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
                 //  value={profileDetails.imgUrl}
                 onChange={(event) => {
                   setImage(event.target.files[0]);
-                  handleChange(event)
-                }
-                }
-
+                  handleChange(event);
+                }}
               />
               <Avatar
                 // src={imageUrl}
                 src={profileDetails.imgUrl}
-                sx={{ width: 100, height: 100, cursor: 'pointer' }}
+                sx={{ width: 100, height: 100, cursor: "pointer" }}
               />
             </label>
 
-            <div className="row" style={{ marginTop: '50px' }}>
-              <div className="col-lg-6 col-xs-12" >
-
+            <div className="row" style={{ marginTop: "50px" }}>
+              <div className="col-lg-6 col-xs-12">
                 <div className="user-box">
-
-
-                  <input className='signup_input'
+                  <input
+                    className="signup_input"
                     type="text"
                     defaultValue={profileDetails.name}
                     onChange={(e) => setName(e.target.value)}
-
                   />
-                  <label >Full Name : </label>
+                  <label>Full Name : </label>
                 </div>
 
                 <div className="user-box">
-
-
-                  <input className='signup_input'
+                  <input
+                    className="signup_input"
                     type="number"
                     defaultValue={profileDetails.age}
                     onChange={(e) => setAge(e.target.value)}
                   />
-                  <label >Age: </label>
+                  <label>Age: </label>
                 </div>
 
                 <div className="user-box">
-
-
-                  <input className='signup_input'
+                  <input
+                    className="signup_input"
                     type="number"
                     defaultValue={profileDetails.contact}
                     onChange={(e) => setContact(e.target.value)}
                   />
-                  <label >Contact Number: </label>
+                  <label>Contact Number: </label>
                 </div>
 
-
-
-
                 <div className="user-box">
-
-
-                  <input className='signup_input'
+                  <input
+                    className="signup_input"
                     type="date"
                     defaultValue={profileDetails.birthday}
                     onChange={(e) => setBirthday(e.target.value)}
@@ -285,42 +264,33 @@ const Update_Profile = () => {
                 </div>
 
                 <div className="user-box">
-
-
-                  <input className='signup_input'
+                  <input
+                    className="signup_input"
                     type="number"
                     defaultValue={profileDetails.height}
                     onChange={(e) => setHeight(e.target.value)}
                   />
                   <label>Height : </label>
                 </div>
-
-
-
-
-
-
               </div>
 
-
-              <div className="col-lg-6 col-xs-12" >
+              <div className="col-lg-6 col-xs-12">
                 <div className="user-box">
-
                   <select
-                    className='signup_input'
+                    className="signup_input"
                     value={gender || profileDetails.gender}
-                    onChange={(e) => setGender(e.target.value)}>
+                    onChange={(e) => setGender(e.target.value)}
+                  >
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
-
                   </select>
                   <label>Gender : </label>
                 </div>
 
-
                 <div className="user-box">
-                  <input className='signup_input'
+                  <input
+                    className="signup_input"
                     type="text"
                     defaultValue={profileDetails.sport}
                     onChange={(e) => setSport(e.target.value)}
@@ -328,28 +298,23 @@ const Update_Profile = () => {
                   <label>Sport : </label>
                 </div>
 
-
-
-
                 <div className="user-box">
-
-                  <input className='signup_input'
+                  <input
+                    className="signup_input"
                     type="text"
-
                     defaultValue={profileDetails.email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <label>Email : </label>
                 </div>
 
-
                 <div className="user-box">
-
                   <select
-                    className='signup_input'
+                    className="signup_input"
                     value={state || profileDetails.state}
                     // defaultValue={profileDetails.state}
-                    onChange={(e) => setState(e.target.value)}>
+                    onChange={(e) => setState(e.target.value)}
+                  >
                     <option value="">Select State</option>
                     <option value="Kelantan">Kelantan</option>
                     <option value="Johor">Johor</option>
@@ -369,29 +334,19 @@ const Update_Profile = () => {
                   <label>State : </label>
                 </div>
 
-
                 <div className="user-box">
-
-
-                  <input className='signup_input'
+                  <input
+                    className="signup_input"
                     type="number"
                     defaultValue={profileDetails.weight}
                     onChange={(e) => setWeight(e.target.value)}
                   />
                   <label>Weight : </label>
                 </div>
-
-
               </div>
 
-
-
-              <div style={{ justifyContent: 'center', display: 'flex' }}>
-                <button className="signup_button"
-
-                  onClick={handleSubmit}
-                >
-
+              <div style={{ justifyContent: "center", display: "flex" }}>
+                <button className="signup_button" onClick={handleSubmit}>
                   <span></span>
                   <span></span>
                   <span></span>
@@ -402,17 +357,9 @@ const Update_Profile = () => {
             </div>
           </div>
         </div>
-
       </div>
-
-
-
     </div>
+  );
+};
 
-
-
-
-  )
-}
-
-export default Update_Profile
+export default Update_Profile;

@@ -41,7 +41,7 @@ function Fitness() {
   const [authorizationDone, setauthorizationDone] = useState(false);
 
   function initalAuth() {
-    window.location.href = `https://www.strava.com/oauth/authorize?client_id=97652&redirect_uri=http://localhost:3000/fitness&response_type=code&scope=activity:read_all,profile:read_all`;
+    window.location.href = `https://www.strava.com/oauth/authorize?client_id=97652&redirect_uri=http://54.209.211.222:5000/fitness&response_type=code&scope=activity:read_all,profile:read_all`;
     buttonPress = true;
     console.log(buttonPress);
   }
@@ -103,7 +103,7 @@ function Fitness() {
     };
     //console.log(PostToken);
     axios
-      .patch("http://localhost:3001/fitness/token", PostToken)
+      .patch("http://54.209.211.222:5001/fitness/token", PostToken)
       .then((response) => {
         // Handle the response
         console.log("Successfull Store Token to DB");
@@ -117,7 +117,7 @@ function Fitness() {
 
   function getTokenfromDB() {
     axios
-      .get(`http://localhost:3001/fitness/get/${datatoken._id}`)
+      .get(`http://54.209.211.222:5001/fitness/get/${datatoken._id}`)
       .then((response) => {
         // Get the refreshToken, accessToken, and expires_at values from the response data
         //const { refreshToken, accessToken, expires_at } = response.data;
@@ -275,13 +275,13 @@ function Fitness() {
       id: datatoken._id,
       athleteName: athleteFirstname,
       weeklyactivities: weekActivityCount,
-      distance:(Math.round(totalDistance / 10) / 100),
-      time:`${totalExcerciseTime}h ${minutes}m`,
+      distance: Math.round(totalDistance / 10) / 100,
+      time: `${totalExcerciseTime}h ${minutes}m`,
     };
     console.log(fitnessData);
     try {
       const response = await axios.patch(
-        `http://localhost:3001/fitness/patchdata/${datatoken._id}`,
+        `http://54.209.211.222:5001/fitness/patchdata/${datatoken._id}`,
         fitnessData
       );
       console.log("Success postActivity", response.data);
@@ -491,12 +491,12 @@ function Fitness() {
                         </p>
                         <div className="row">
                           <div className="col-md-4">
-                          <button
+                            <button
                               href={`/profile/${datatoken._id}`}
                               class="btn btn-sm btn-outline-primary"
                             >
                               View Profile
-                              </button>
+                            </button>
                           </div>
                           <div className="col-md-3">
                             <button
