@@ -74,7 +74,7 @@ function List() {
 
   //     try {
   //       setLoading(true)
-  //       axios.get("http://54.209.211.222:5001/inventory").then((response) => {
+  //       axios.get("http://54.209.211.222:5000/inventory").then((response) => {
   //         setItems(response.data);
   //       });
   //       setLoading(false)

@@ -22,7 +22,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://54.209.211.222:5001/account/login", {
+      const res = await axios.post("http://54.209.211.222:5000/account/login", {
         username,
         password,
       });

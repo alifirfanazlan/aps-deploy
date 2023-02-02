@@ -14,7 +14,7 @@ function Add_Team_Achievement({ setOpen }) {
   const handleUpload = async (e) => {
     e.preventDefault();
 
-    await axios.post(`http://54.209.211.222:5001/team/achievement/${path}`, {
+    await axios.post(`http://54.209.211.222:5000/team/achievement/${path}`, {
       achievement: achievement,
       year: selectedYear,
     });

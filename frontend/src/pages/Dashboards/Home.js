@@ -45,13 +45,13 @@ function Home() {
     // use datatoken here
   }
   // useEffect(() => {
-  //   const accountRes = axios.get(`http://54.209.211.222:5001/account/find/${datatoken._id}`);
-  //   // axios.get(`http://54.209.211.222:5001/account/${id}`).then((response) => {
+  //   const accountRes = axios.get(`http://54.209.211.222:5000/account/find/${datatoken._id}`);
+  //   // axios.get(`http://54.209.211.222:5000/account/${id}`).then((response) => {
   //   //       setProfileDetails(response.data);
   //   //     });
   //   setProfileDetails(accountRes.data);
 
-  //   // axios.post("http://54.209.211.222:5001/announcement").then((response) => {
+  //   // axios.post("http://54.209.211.222:5000/announcement").then((response) => {
   //   //   setAnnouncementDetails(response.data);
   //   // });
 
@@ -61,20 +61,20 @@ function Home() {
     const fetchData = async () => {
       try {
         const accountRes = await axios.get(
-          `http://54.209.211.222:5001/account/find/${datatoken._id}`
+          `http://54.209.211.222:5000/account/find/${datatoken._id}`
         );
         setProfileDetails(accountRes.data);
         const bookingRes = await axios.get(
-          `http://54.209.211.222:5001/booking/nearest/${datatoken._id}`
+          `http://54.209.211.222:5000/booking/nearest/${datatoken._id}`
         );
         setBooking(bookingRes.data);
         console.log("Success");
         const fitnessGet = await axios.get(
-          `http://54.209.211.222:5001/fitness/getfitness/${datatoken._id}`
+          `http://54.209.211.222:5000/fitness/getfitness/${datatoken._id}`
         );
         setfitness(fitnessGet.data);
         const wellnessGet = await axios.get(
-          `http://54.209.211.222:5001/wellness/getmood/${datatoken._id}`
+          `http://54.209.211.222:5000/wellness/getmood/${datatoken._id}`
         );
         setwellness(wellnessGet.data);
       } catch (err) {}
@@ -89,7 +89,7 @@ function Home() {
   // }
 
   // const addAnnouncement = async () => {
-  //   await axios.post("http://54.209.211.222:5001/announcement",
+  //   await axios.post("http://54.209.211.222:5000/announcement",
   //     {
   //       announcementBody: newAnnouncement
   //       // , ProfileId: _id

@@ -28,7 +28,7 @@ function Team_Sheet() {
     const fetchData = async () => {
       try {
         const players = await axios.get(
-          `http://54.209.211.222:5001/account/sport/${path}`
+          `http://54.209.211.222:5000/account/sport/${path}`
         );
         setPlayers(players.data);
       } catch (err) {}
@@ -39,7 +39,7 @@ function Team_Sheet() {
   //   const handleSubmit = async () => {
   //     const playerIds = selectedProfiles.map(profile => profile._id);
   //     try {
-  //         const response = await axios.post(`http://54.209.211.222:5001/team/sheet/${path}`, { players: playerIds });
+  //         const response = await axios.post(`http://54.209.211.222:5000/team/sheet/${path}`, { players: playerIds });
   //         console.log(response);
   //     } catch (error) {
   //         console.error(error);
@@ -52,7 +52,7 @@ function Team_Sheet() {
     }));
     try {
       const response = await axios.patch(
-        `http://54.209.211.222:5001/team/sheet/${path}`,
+        `http://54.209.211.222:5000/team/sheet/${path}`,
         { players: playerIds }
       );
       console.log(response);

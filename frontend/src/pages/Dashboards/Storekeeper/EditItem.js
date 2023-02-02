@@ -24,14 +24,14 @@ function EditItem({ setOpen, item, setItems }) {
 
   const fetchData = async () => {
     try {
-      const items = await axios.get("http://54.209.211.222:5001/inventory");
+      const items = await axios.get("http://54.209.211.222:5000/inventory");
       setItems(items.data);
     } catch (err) {}
   };
 
   const addItem = (itemid) => {
     axios
-      .patch(`http://54.209.211.222:5001/inventory/${itemid}`, {
+      .patch(`http://54.209.211.222:5000/inventory/${itemid}`, {
         item_name: formData.item_name,
         item_cost: formData.item_cost,
         item_amount: formData.item_amount,

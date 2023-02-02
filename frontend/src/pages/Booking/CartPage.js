@@ -57,7 +57,7 @@ const CartPage = () => {
   };
 
   const handleSubmit = async (item, index) => {
-    const res = await axios.post("http://54.209.211.222:5001/booking/", {
+    const res = await axios.post("http://54.209.211.222:5000/booking/", {
       // item_name: item.item.item_name,
       // item_amount: item.quantity,
       // // startDate: ,

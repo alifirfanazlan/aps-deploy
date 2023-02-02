@@ -136,7 +136,7 @@ const Upload = ({ setOpen }) => {
   const handleUpload = async (e) => {
     e.preventDefault();
     const videoUrl = video && (await uploadFile(video, "videoUrl"));
-    const res = await axios.post("http://54.209.211.222:5001/videos", {
+    const res = await axios.post("http://54.209.211.222:5000/videos", {
       userId: id,
       //  imgUrl : imgUrl1,
       videoUrl: videoUrl,

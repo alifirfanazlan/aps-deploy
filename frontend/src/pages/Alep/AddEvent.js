@@ -22,7 +22,7 @@ const App = () => {
   });
 
   const onSubmit = (data) => {
-    axios.post("http://54.209.211.222:5001/event", data).then((response) => {
+    axios.post("http://54.209.211.222:5000/event", data).then((response) => {
       alert("Data Input");
       navigate("/schedule");
     });

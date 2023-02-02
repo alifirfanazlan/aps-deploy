@@ -64,7 +64,7 @@ const StorekeeperInfo = ({ formData, setFormData, page, setPage, x, setX }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://54.209.211.222:5001/account", {
+      const res = await axios.post("http://54.209.211.222:5000/account", {
         username: formData.username,
         password: formData.password,
         name: formData.name,

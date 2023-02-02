@@ -24,7 +24,7 @@ function InventoryList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const items = await axios.get("http://54.209.211.222:5001/inventory");
+        const items = await axios.get("http://54.209.211.222:5000/inventory");
         setItems(items.data);
         setStoreDropdown(
           Array.from(new Set(items.data.map((item) => item.store)))
@@ -40,7 +40,7 @@ function InventoryList() {
 
   const deleteItem = (itemid) => {
     axios
-      .delete(`http://54.209.211.222:5001/inventory/${itemid}`)
+      .delete(`http://54.209.211.222:5000/inventory/${itemid}`)
       .then((response) => {
         console.log(response.data);
         if (response.data.error) {

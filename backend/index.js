@@ -54,7 +54,7 @@ const connect = () => {
 app.use(
   cors({
     // credentials: true,
-    origin: "http://54.209.211.222:5000",
+    origin: "http://54.209.211.222:5001",
   })
 );
 app.use("/profile", profileRouter);

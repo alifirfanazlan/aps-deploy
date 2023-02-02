@@ -79,7 +79,7 @@ const Update_Profile = () => {
     const fetchData = async () => {
       try {
         const accountRes = await axios.get(
-          `http://54.209.211.222:5001/account/find/${datatoken._id}`
+          `http://54.209.211.222:5000/account/find/${datatoken._id}`
         );
 
         setProfileDetails(accountRes.data);
@@ -165,7 +165,7 @@ const Update_Profile = () => {
     }
 
     const res = await axios.patch(
-      `http://54.209.211.222:5001/account/${datatoken._id}`,
+      `http://54.209.211.222:5000/account/${datatoken._id}`,
       {
         name: name,
         age: age,

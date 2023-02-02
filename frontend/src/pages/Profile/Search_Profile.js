@@ -49,7 +49,7 @@ function Search_Profile() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://54.209.211.222:5001/account/random").then((response) => {
+    axios.get("http://54.209.211.222:5000/account/random").then((response) => {
       // retrieve sport name data from other table
       setListofProfiles(response.data);
     });

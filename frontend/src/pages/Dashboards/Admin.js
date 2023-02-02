@@ -30,18 +30,18 @@ function Admin() {
   const [approval, setApproval] = useState(false);
 
   useEffect(() => {
-    axios.get("http://54.209.211.222:5001/account/find").then((response) => {
+    axios.get("http://54.209.211.222:5000/account/find").then((response) => {
       setListofProfiles(response.data);
     });
   }, []);
 
   const approveUser = async (userid) => {
-    await axios.patch(`http://54.209.211.222:5001/account/request/${userid}`);
+    await axios.patch(`http://54.209.211.222:5000/account/request/${userid}`);
   };
 
   const approveManager = async (team, id, name) => {
     try {
-      await axios.post(`http://54.209.211.222:5001/team/manager/${team}`, {
+      await axios.post(`http://54.209.211.222:5000/team/manager/${team}`, {
         id: id,
         name: name,
       });
@@ -52,7 +52,7 @@ function Admin() {
 
   const approveCoach = async (team, id, name) => {
     try {
-      await axios.post(`http://54.209.211.222:5001/team/coach/${team}`, {
+      await axios.post(`http://54.209.211.222:5000/team/coach/${team}`, {
         id: id,
         name: name,
       });
@@ -62,7 +62,7 @@ function Admin() {
   };
 
   const rejectUser = async (userid) => {
-    await axios.delete(`http://54.209.211.222:5001/account/${userid}`);
+    await axios.delete(`http://54.209.211.222:5000/account/${userid}`);
   };
 
   const handleChange = (e) => {

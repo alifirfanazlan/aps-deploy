@@ -195,7 +195,7 @@ const PersonalInfo = ({ formData, setFormData, page, setPage, x, setX }) => {
     const imageUrl = image && (await uploadFile(image, "imgUrl"));
 
     try {
-      const res = await axios.post("http://54.209.211.222:5001/account", {
+      const res = await axios.post("http://54.209.211.222:5000/account", {
         username: formData.username,
         password: formData.password,
         name: formData.name,

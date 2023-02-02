@@ -61,13 +61,13 @@ function Video() {
     const fetchData = async () => {
       try {
         const videoRes = await axios.get(
-          `http://54.209.211.222:5001/videos/find/${path}`
+          `http://54.209.211.222:5000/videos/find/${path}`
         );
         const channelRes = await axios.get(
-          `http://54.209.211.222:5001/account/find/${videoRes.data.userId}`
+          `http://54.209.211.222:5000/account/find/${videoRes.data.userId}`
         );
         const addViews = await axios.put(
-          `http://54.209.211.222:5001/videos/view/${path}`
+          `http://54.209.211.222:5000/videos/view/${path}`
         );
 
         setUser(channelRes.data);
@@ -101,7 +101,7 @@ function Video() {
   const [desc, setDesc] = useState(video.desc);
 
   const handleEdit = async () => {
-    await axios.put(`http://54.209.211.222:5001/videos/${path}`, {
+    await axios.put(`http://54.209.211.222:5000/videos/${path}`, {
       title: title,
       desc: desc,
     });
@@ -113,7 +113,7 @@ function Video() {
     const previousVideoUrl = video.videoUrl;
     // let videoUrl = previousVideoUrl;
     await deleteFileFromStorage(previousVideoUrl);
-    await axios.delete(`http://54.209.211.222:5001/videos/${path}`);
+    await axios.delete(`http://54.209.211.222:5000/videos/${path}`);
     navigate(`/profile/${datatoken._id}`);
   };
 

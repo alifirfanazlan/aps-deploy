@@ -67,11 +67,11 @@ function Spesific_Profile() {
     const fetchData = async () => {
       try {
         const accountRes = await axios.get(
-          `http://54.209.211.222:5001/account/find/${path}`
+          `http://54.209.211.222:5000/account/find/${path}`
         );
         // const profileRes = await axios.get(`/profile/${accountRes.data._id}`);
         const videoRes = await axios.get(
-          `http://54.209.211.222:5001/videos/${path}`
+          `http://54.209.211.222:5000/videos/${path}`
         );
 
         // const channelRes = await axios.get(
@@ -88,14 +88,14 @@ function Spesific_Profile() {
 
   const deleteAchievement = async (achievementId) => {
     await axios.delete(
-      `http://54.209.211.222:5001/account/achievement/${path}/${achievementId}`
+      `http://54.209.211.222:5000/account/achievement/${path}/${achievementId}`
     );
   };
 
   // }, []);
 
   // const addComment = () => {
-  //     axios.post("http://54.209.211.222:5001/comment",
+  //     axios.post("http://54.209.211.222:5000/comment",
   //         {commentBody: newComment, ProfileId: id },
 
   //       )

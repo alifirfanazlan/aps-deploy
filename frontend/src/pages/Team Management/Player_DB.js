@@ -22,7 +22,7 @@ function Player_DB() {
     const fetchData = async () => {
       try {
         const players = await axios.get(
-          `http://54.209.211.222:5001/account/sport/${path}`
+          `http://54.209.211.222:5000/account/sport/${path}`
         );
         setPlayers(players.data);
       } catch (err) {}

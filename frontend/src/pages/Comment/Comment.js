@@ -10,7 +10,7 @@ function Post() {
   //   const { authState } = useContext(AuthContext);
 
   useEffect(() => {
-    axios.get(`http://54.209.211.222:5001/comment/${id}`).then((response) => {
+    axios.get(`http://54.209.211.222:5000/comment/${id}`).then((response) => {
       setComments(response.data);
     });
   });
@@ -18,7 +18,7 @@ function Post() {
 
   const addComment = () => {
     axios
-      .post("http://54.209.211.222:5001/comment", {
+      .post("http://54.209.211.222:5000/comment", {
         commentBody: newComment,
         ProfileId: id,
       })

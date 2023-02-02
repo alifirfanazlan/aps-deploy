@@ -29,7 +29,7 @@ function ManageBooking() {
 
   useEffect(() => {
     try {
-      axios.get("http://54.209.211.222:5001/booking").then((response) => {
+      axios.get("http://54.209.211.222:5000/booking").then((response) => {
         setBookings(response.data);
         setStoreDropdown(
           Array.from(new Set(response.data.map((item) => item.store)))
@@ -41,19 +41,19 @@ function ManageBooking() {
   }, []);
 
   const approveBooking = async (bookingid) => {
-    await axios.post(`http://54.209.211.222:5001/booking/approve/${bookingid}`);
+    await axios.post(`http://54.209.211.222:5000/booking/approve/${bookingid}`);
   };
 
   const rejectBooking = async (bookingid) => {
-    await axios.post(`http://54.209.211.222:5001/booking/reject/${bookingid}`);
+    await axios.post(`http://54.209.211.222:5000/booking/reject/${bookingid}`);
   };
 
   const pickedBooking = async (bookingid) => {
-    await axios.post(`http://54.209.211.222:5001/booking/picked/${bookingid}`);
+    await axios.post(`http://54.209.211.222:5000/booking/picked/${bookingid}`);
   };
 
   const returnedBooking = async (bookingid) => {
-    await axios.post(`http://54.209.211.222:5001/booking/return/${bookingid}`);
+    await axios.post(`http://54.209.211.222:5000/booking/return/${bookingid}`);
   };
 
   const handleChange = (e) => {

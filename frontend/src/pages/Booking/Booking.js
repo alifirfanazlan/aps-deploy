@@ -64,7 +64,7 @@ function Booking() {
 
   useEffect(() => {
     try {
-      axios.get("http://54.209.211.222:5001/inventory").then((response) => {
+      axios.get("http://54.209.211.222:5000/inventory").then((response) => {
         setItems(response.data);
         setStoreDropdown(
           Array.from(new Set(response.data.map((item) => item.store)))

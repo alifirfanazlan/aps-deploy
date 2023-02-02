@@ -71,7 +71,7 @@ function Create_Team({ setOpenAchievement }) {
   const handleUpload = async () => {
     const logoUrlUpload = await uploadFile(logo, "logoUrl");
 
-    await axios.post("http://54.209.211.222:5001/team/", {
+    await axios.post("http://54.209.211.222:5000/team/", {
       logoUrl: logoUrlUpload,
       name: name,
     });

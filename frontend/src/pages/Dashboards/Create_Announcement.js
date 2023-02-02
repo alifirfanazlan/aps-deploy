@@ -35,7 +35,7 @@ function Create_Announcement() {
 
   const addAnnouncement = () => {
     axios
-      .post("http://54.209.211.222:5001/announcement", {
+      .post("http://54.209.211.222:5000/announcement", {
         announcementBody: announcement,
         date: date,
       })

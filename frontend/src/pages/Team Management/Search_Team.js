@@ -32,7 +32,7 @@ function Search_Team() {
   // const [q, setQ] = useState("");
   let navigate = useNavigate();
   useEffect(() => {
-    axios.get("http://54.209.211.222:5001/team/random").then((response) => {
+    axios.get("http://54.209.211.222:5000/team/random").then((response) => {
       setListofTeams(response.data);
     });
   }, []);

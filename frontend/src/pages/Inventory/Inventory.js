@@ -30,7 +30,7 @@ function Inventory() {
 
   const addItem = () => {
     axios
-      .post("http://54.209.211.222:5001/inventory", {
+      .post("http://54.209.211.222:5000/inventory", {
         item_name: item,
         item_cost: cost,
         item_amount: amount,

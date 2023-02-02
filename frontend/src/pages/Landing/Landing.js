@@ -28,11 +28,11 @@ function Landing() {
   const [listofTeams, setListofTeams] = useState([]);
 
   // useEffect( () => {
-  //     axios.get("http://54.209.211.222:5001/announcement").then((response) => {
+  //     axios.get("http://54.209.211.222:5000/announcement").then((response) => {
   //         setAnnouncements(response.data);
   //       });
 
-  //       axios.get("http://54.209.211.222:5001/account/random").then((response) => {
+  //       axios.get("http://54.209.211.222:5000/account/random").then((response) => {
   //         setListofProfiles(response.data);
   // });
   // }, []);
@@ -40,15 +40,15 @@ function Landing() {
   useEffect(() => {
     const getAnnouncement = async () => {
       try {
-        const res = await axios.get("http://54.209.211.222:5001/announcement");
+        const res = await axios.get("http://54.209.211.222:5000/announcement");
         axios
-          .get("http://54.209.211.222:5001/account/random")
+          .get("http://54.209.211.222:5000/account/random")
           .then((response) => {
             // retrieve sport name data from other table
             setListofProfiles(response.data);
           });
         axios
-          .get("http://54.209.211.222:5001/team/randomhome")
+          .get("http://54.209.211.222:5000/team/randomhome")
           .then((response) => {
             setListofTeams(response.data);
           });

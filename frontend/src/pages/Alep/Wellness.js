@@ -84,7 +84,7 @@ function Wellness() {
     validationSchema: validationSchema,
     onSubmit: (data) => {
       axios
-        .post("http://54.209.211.222:5001/wellness", data)
+        .post("http://54.209.211.222:5000/wellness", data)
         .then((response) => {
           alert(JSON.stringify("Input Data Successfull", null, 2));
           postMood();
@@ -101,7 +101,7 @@ function Wellness() {
   useEffect(() => {
     async function getInjury() {
       const request = await axios.get(
-        `http://54.209.211.222:5001/wellness/date/${datatoken._id}`
+        `http://54.209.211.222:5000/wellness/date/${datatoken._id}`
       );
       request.data.map((element) => {
         setInjuryData(element.injuryPart);
@@ -120,7 +120,7 @@ function Wellness() {
   useEffect(() => {
     async function getSleep() {
       const request = await axios.get(
-        `http://54.209.211.222:5001/wellness/sleep/${datatoken._id}`
+        `http://54.209.211.222:5000/wellness/sleep/${datatoken._id}`
       );
 
       setGetSleepDataStart(
@@ -145,7 +145,7 @@ function Wellness() {
   useEffect(() => {
     async function checkForm() {
       await axios
-        .get(`http://54.209.211.222:5001/wellness/form/${datatoken._id}`)
+        .get(`http://54.209.211.222:5000/wellness/form/${datatoken._id}`)
         .then((res) => {
           setcheckForm(
             res.data.map((element) => {
@@ -202,7 +202,7 @@ function Wellness() {
     //console.log(PostMood);
     axios
       .patch(
-        `http://54.209.211.222:5001/wellness/mood/${datatoken._id}`,
+        `http://54.209.211.222:5000/wellness/mood/${datatoken._id}`,
         PostMood
       )
       .then((response) => {

@@ -3,19 +3,19 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { convertTime } from "../../utils/convertTime";
 import Button from "@mui/material/Button";
-import './Schedule.css'
+import "./Schedule.css";
 
 function Schedule() {
   const [listofEvent, setlistofEvent] = useState([]);
   const addEvent = useNavigate();
 
   useEffect(() => {
-    axios.get("http://54.209.211.222:5001/event").then((response) => {
+    axios.get("http://54.209.211.222:5000/event").then((response) => {
       setlistofEvent(response.data);
     });
   }, []);
 
-    return (
+  return (
     <div className="App">
       <Button
         className="addEventButton"

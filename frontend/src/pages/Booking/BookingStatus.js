@@ -38,7 +38,7 @@ const BookingStatus = () => {
   useEffect(() => {
     try {
       axios
-        .get(`http://54.209.211.222:5001/booking/${datatoken._id}`)
+        .get(`http://54.209.211.222:5000/booking/${datatoken._id}`)
         .then((response) => {
           setItems(response.data);
           // setStoreDropdown(Array.from(new Set(response.data.map(item => item.store))))
@@ -58,7 +58,7 @@ const BookingStatus = () => {
   };
 
   const deleteBooking = (bookingId) => {
-    axios.delete(`http://54.209.211.222:5001/booking/${bookingId}`);
+    axios.delete(`http://54.209.211.222:5000/booking/${bookingId}`);
     console.log("Booking deleted");
   };
 

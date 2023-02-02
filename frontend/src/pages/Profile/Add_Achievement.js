@@ -14,7 +14,7 @@ function Add_Achievement({ setOpenAchievement }) {
   const handleUpload = async (e) => {
     e.preventDefault();
 
-    await axios.post(`http://54.209.211.222:5001/account/achievement/${path}`, {
+    await axios.post(`http://54.209.211.222:5000/account/achievement/${path}`, {
       achievement: achievement,
       year: selectedYear,
     });

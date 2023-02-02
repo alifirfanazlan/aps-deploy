@@ -44,7 +44,7 @@ function Forgot_Password() {
 
     try {
       const res = await axios.patch(
-        `http://54.209.211.222:5001/account/forgotpassword/${email}`,
+        `http://54.209.211.222:5000/account/forgotpassword/${email}`,
         { password: password }
       );
 

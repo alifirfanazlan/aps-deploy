@@ -98,11 +98,11 @@ function Team_Profile() {
     const fetchData = async () => {
       try {
         const teamRes = await axios.get(
-          `http://54.209.211.222:5001/team/find/${path}`
+          `http://54.209.211.222:5000/team/find/${path}`
         );
         setTeamDetails(teamRes.data);
         const players = await axios.get(
-          `http://54.209.211.222:5001/account/sport/${path}`
+          `http://54.209.211.222:5000/account/sport/${path}`
         );
         setPlayers(players.data);
         setAchievements(teamRes.data.achievement);
@@ -195,7 +195,7 @@ function Team_Profile() {
 
   const getManagerImage = async (managerId) => {
     const response = await axios.get(
-      `http://54.209.211.222:5001/account/find/${managerId}`
+      `http://54.209.211.222:5000/account/find/${managerId}`
     );
     console.log(response.data.imgUrl);
     return response.data.imgUrl;
@@ -213,7 +213,7 @@ function Team_Profile() {
 
   const getCoachImage = async (coachId) => {
     const response = await axios.get(
-      `http://54.209.211.222:5001/account/find/${coachId}`
+      `http://54.209.211.222:5000/account/find/${coachId}`
     );
     console.log(response.data.imgUrl);
     return response.data.imgUrl;
@@ -231,7 +231,7 @@ function Team_Profile() {
 
     const newLogo = await uploadFile(logo, "logoUrl");
 
-    await axios.put(`http://54.209.211.222:5001/team/${path}`, {
+    await axios.put(`http://54.209.211.222:5000/team/${path}`, {
       logoUrl: newLogo,
     });
 
@@ -242,7 +242,7 @@ function Team_Profile() {
 
   const deleteAchievement = async (achievementId) => {
     await axios.delete(
-      `http://54.209.211.222:5001/team/achievement/${path}/${achievementId}`
+      `http://54.209.211.222:5000/team/achievement/${path}/${achievementId}`
     );
   };
 

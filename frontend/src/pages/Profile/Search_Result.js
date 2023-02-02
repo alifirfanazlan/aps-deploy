@@ -13,7 +13,7 @@ function Search_Result() {
   useEffect(() => {
     const fetchProfiles = async () => {
       const res = await axios.get(
-        `http://54.209.211.222:5001/account/search${query}`
+        `http://54.209.211.222:5000/account/search${query}`
       );
       setProfiles(res.data);
     };

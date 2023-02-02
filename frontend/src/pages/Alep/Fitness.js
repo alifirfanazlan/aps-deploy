@@ -103,7 +103,7 @@ function Fitness() {
     };
     //console.log(PostToken);
     axios
-      .patch("http://54.209.211.222:5001/fitness/token", PostToken)
+      .patch("http://54.209.211.222:5000/fitness/token", PostToken)
       .then((response) => {
         // Handle the response
         console.log("Successfull Store Token to DB");
@@ -117,7 +117,7 @@ function Fitness() {
 
   function getTokenfromDB() {
     axios
-      .get(`http://54.209.211.222:5001/fitness/get/${datatoken._id}`)
+      .get(`http://54.209.211.222:5000/fitness/get/${datatoken._id}`)
       .then((response) => {
         // Get the refreshToken, accessToken, and expires_at values from the response data
         //const { refreshToken, accessToken, expires_at } = response.data;
@@ -281,7 +281,7 @@ function Fitness() {
     console.log(fitnessData);
     try {
       const response = await axios.patch(
-        `http://54.209.211.222:5001/fitness/patchdata/${datatoken._id}`,
+        `http://54.209.211.222:5000/fitness/patchdata/${datatoken._id}`,
         fitnessData
       );
       console.log("Success postActivity", response.data);
